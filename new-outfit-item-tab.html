@@ -1,0 +1,227 @@
+<script>
+
+$(function(){
+    var component_ID = {
+        type: "tab",
+        version: 1.2,
+        kind: "component",
+        name: "new-outfit-item-tab.html",
+        description: "inserts outfit texture data entry in zangoDB.",
+    };
+});
+
+</script>
+
+<style>
+
+    .selected {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 142, 255, 1);
+    }
+
+    .product-title-field {
+        color:#ffffff;
+        background:none;
+    }
+
+    .product-item-value {
+        text-align: center;
+        font-size: x-large;
+        font-weight: bold;
+    }
+    
+    .product-item-textfield {
+        width:70%;
+        float:right;
+    }
+
+    .x-large {
+        font-size: x-large;
+    }
+
+</style>
+
+<div class="helpers-header newitem-header" style="margin-bottom:20px;">
+    <input type="text" id="new-item-title" class="form-control text-center x-large product-title-field" placeholder="New product title">
+</div>
+
+<div class="product-preview" style="margin-bottom:10px;">
+
+    <div style="margin-bottom:10px;">
+        <img id="new-item-preview" width="300" height="300" style="width:100%;height:300px;max-width:300px;max-height:300px;margin:auto;">
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <div id="new-item-import-button" class="form-control btn btn-success btn-white-outline gradient-btn" style="width:70%;">Import texture file</div>
+        <input type="file" id="new-item-texture-fileinput" accept="image/*" class="hidden">
+        <div id="new-item-texture-remove-button" class="form-control btn btn-default btn-white-outline gradient-btn" style="width:28%;float:right;">Remove</div>
+    </div>
+
+</div>
+
+<div class="new-item-basic-info" style="margin-bottom:20px;">
+
+    <div style="height:30px;">
+        <h4 class="x-large">Sex:
+            <div class="product-item-textfield" style="display:inline-block;">
+                <select id="new-item-gender" class="form-control outfit-gender-droplist" readOnly>
+                    <option value="">Select gender:</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+            </div>
+        </h4>
+    </div>
+
+    <div style="height:30px;">
+        <h4 class="x-large">Slot:
+            <div class="product-item-textfield" style="display:inline-block;">
+                <select id="new-item-outifit" class="form-control outfit-slot-droplist" readOnly>
+                    <option value="">Select outfit slot:</option>
+                    <option value="body">body</option>
+                    <option value="eyes">eyes</option>
+                    <option value="hairs">hairs</option>
+                    <option value="tshirt">tshirt</option>
+                    <option value="dress">dress</option>
+                    <option value="costume">costume</option>
+                    <option value="trousers">trousers</option>
+                    <option value="stockings">stockings</option>
+                    <option value="underwears">underwears</option>
+                    <option value="shoes">shoes</option>
+                </select>
+            </div>
+        </h4>
+    </div>
+
+    <div style="height:30px;">
+        <h4 class="x-large">Kind:
+            <div class="product-item-textfield" style="display:inline-block;">
+                <select id="new-item-category" class="form-control outfit-category-droplist" readOnly>
+                    <option value="">Select item category:</option>
+                    <option value="body">body</option>
+                    <option value="hairs">hairs</option>
+                    <option value="bra">bra</option>
+                    <option value="panties">panties</option>
+                    <option value="underwears">underwears</option>
+                    <option value="lingeries">lingeries</option>
+                    <option value="stocking">stocking</option>
+                    <option value="boxers">boxers</option>
+                    <option value="tshirt">tshirt</option>
+                    <option value="skirt">skirt</option>
+                    <option value="trousers">trousers</option>
+                    <option value="dress">dress</option>
+                    <option value="floordress">floor dress</option>
+                    <option value="shoes">shoes</option>
+                    <!-- option value="coat">coat</option -->
+                </select>
+            </div>
+        </h4>
+    </div>
+
+    <div style="height:30px;">
+        <h4 class="x-large">Map:
+            <div class="product-item-textfield" style="display:inline-block;">
+                <select id="new-item-map" class="form-control texture-map-droplist" readOnly>
+                    <option value="">Select texture map:</option>
+                    <option value="map">map</option>
+                    <option value="bumpMap">bump</option>
+                    <option value="alphaMap">alpha</option>
+                    <option value="normalMap">normal</option>
+                    <option value="emissiveMap">emissive</option>
+                    <option value="metalnessMap">metalness</option>
+                    <option value="roughnessMap">roughness</option>
+                    <option value="displacementMap">displacement</option>
+                    <option value="specularMap">specular</option>
+                    <option value="lightMap">light</option>
+                    <option value="aoMap">ao</option>
+                </select>
+            </div>
+        </h4>
+    </div>
+
+    <div style="height:30px;display:none;">
+        <h4 class="x-large">Design:
+            <input type="text" id="new-item-designer" class="form-control product-item-textfield" disabled placeholder="User name">
+        </h4>
+    </div>
+
+</div>
+
+<input type="text" id="new-item-value" class="form-control product-item-value" style="margin-bottom:10px;" placeholder="Price">
+
+<div class="helpers-header item-snapshots-header" style="margin-bottom:10px;">
+    <h3>Add snapshot images:</h3>
+    <div class="product-snapshots-container" style="margin-bottom:0px;overflow-x:scroll;overflow-y:hidden;max-width:300px;height:110px;">
+        <div id="new-item-snapshots" class="product-snapshots" style="display:inline-block;width:max-content;height:95px;">
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+            <li class="btn btn-default btn-white-outline catalog-item outfit-catalog-item"></li>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:10px;">
+        <div id="new-snapshot-remove-button" class="form-control btn btn-danger btn-white-outline gradient-btn" style="width:32%;float:left;">Remove</div>
+        <div id="new-snapshot-master-button" class="form-control btn btn-success btn-white-outline gradient-btn" style="width:32%;">Set as main</div>
+        <div id="new-snapshot-add-button" class="form-control btn btn-primary btn-white-outline gradient-btn" style="width:32%;float:right;">Add</div>
+    </div>
+
+</div>
+
+<div class="well product-description" style="height:250px;margin-bottom:20px;background:none;">
+    <h4 style="margin-top:0px;">Description:</h4>
+    <textarea id="new-item-description" style="width:100%;height:180px;overflow:auto;border:none;background:none;"></textarea>
+</div>
+
+<div id="new-item-test-button" class="form-control btn btn-info btn-white-outline gradient-btn" style="margin-bottom:10px;">Test it</div>
+
+<div style="height:50px;">
+    <h4 class="x-large">Status:
+        <div class="product-item-textfield" style="display:inline-block;">
+            <select id="new-item-status" class="form-control helper" readOnly>
+                <option value="0">on hold</option>
+                <option value="1">published</option>
+            </select>
+        </div>
+    </h4>
+</div>
+
+<div style="margin-bottom:10px;">
+    <div id="new-item-save-button" class="form-control btn btn-success btn-white-outline gradient-btn" style="width:70%;">Save</div>
+    <div id="new-item-cancel-button" class="form-control btn btn-default btn-white-outline gradient-btn" style="width:28%;float:right;">Cancel</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
